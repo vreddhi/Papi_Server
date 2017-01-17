@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>PAPI Access</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/custom/custom.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">$(document).ready(function(){$("ul.list-group").hide()});</script>
+
+    <script>
+       function showhide()
+       {
+
+              var div = document.getElementById("newpost");
+              var button = document.getElementById("button");
+              if (div.style.display !== "none") {
+                  div.style.display = "none";
+                  $("#button span").text("Show Options");
+              }
+              else {
+                  div.style.display = "block";
+                  $("#button span").text("Hide Options");
+              }
+
+
+       }
+    </script>
+
+    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+    <script>
+      $(document).ready(function() {
+        var form = document.getElementById("form_test");
+        var socket = io();
+        form.addEventListener('submit',function(e){
+          var formElements = {};
+          formElements = $("#form_test").serializeArray();
+          console.log(formElements);
+          socket.emit('postMessage', formElements);
+        });
+        socket.on('updateMessages', function(data) {
+          console.log(data);
+        });
+      });
+    </script>
+
+  </head>
+
+<body>
+  <div class="row">
+    <div class="col-sm-12"><h1><h1></div>
+    <h3 class="col-sm-12 text-center">Redirect Automation Using PAPI</h3>
+  </div>
+  <div class="row">
+    <div class="col-sm-12"><h1><h1></div>
+  </div>
+  <div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-md-8">
+      <form class="form-inline" id="form_test" name="form_test" method="post" action="profile" enctype   =  "multipart/form-data">
+        <div class="form-group">
+          <label class="sr-only" for="client_token">client_token</label>
+          <label class="sr-only" for="client_secret">client_secret</label>
+          <label class="sr-only" for="client_secret">access_token</label>
+          <label class="sr-only" for="Property_Name">Property_Name</label>
+          <label class="sr-only" for="Access_Url">Access_Url</label>
+          <div class="input-group">
+            <div class="input-group-addon">Credentials</div>
+            <input type="text" class="form-control" id="client_token" name="client_token" placeholder="client_token">
+            <input type="text" class="form-control" id="client_secret" name="client_secret" placeholder="client_secret">
+            <input type="text" class="form-control" id="access_token" name="access_token" placeholder="access_token">
+            <input type="text" class="form-control" id="Property_Name" name="Property_Name" placeholder="Property_Name">
+            <input type="text" class="form-control" id="Access_Url" name="Access_Url" placeholder="Access_Url">
+            <div class="input-group-addon">Safe and Secure</div>
+          </div>
+          <div class="col-sm-12"><h1><h1></div>
+          <label for="exampleInputFile">Select the redirect Source file</label>
+          <input type="file" id="sampleFile" name="sampleFile">
+        </div>
+        <div class="col-sm-12"><h3><h3></div>
+        <button type="submit" class="btn btn-primary">Upload Redirect Urls</button>
+      </form>
+    </div>
+</div>
+
+<div class="col-sm-12"><h1><h1></div>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-sm-offset-1">
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <div class="panel-heading">Advanced Options (OPTIONAL)
+                <button id="button" class ="col-md-offset-1 btn-primary btn-xs" onclick="showhide()">
+                  <span class="ui-button-text">Show Options</span>
+                </button>
+              </div>
+
+                <!-- List group -->
+                <ul class="list-group" id="newpost">
+                    <li class="list-group-item">
+                        Ignore Request Protocol
+                        <div class="material-switch pull-right">
+                            <input id="someSwitchOptionDefault" name="someSwitchOption001" type="checkbox"/>
+                            <label for="someSwitchOptionDefault" class="label-default"></label>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        Ignore Hostname in Request URL
+                        <div class="material-switch pull-right">
+                            <input id="someSwitchOptionPrimary" name="someSwitchOption001" type="checkbox"/>
+                            <label for="someSwitchOptionPrimary" class="label-primary"></label>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        Ignore Query String in Request URL
+                        <div class="material-switch pull-right">
+                            <input id="someSwitchOptionSuccess" name="someSwitchOption001" type="checkbox"/>
+                            <label for="someSwitchOptionSuccess" class="label-success"></label>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        Include Destination query string parameter
+                        <div class="material-switch pull-right">
+                            <input id="someSwitchOptionInfo" name="someSwitchOption001" type="checkbox"/>
+                            <label for="someSwitchOptionInfo" class="label-info"></label>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        Use Request's query string paramter
+                        <div class="material-switch pull-right">
+                            <input id="someSwitchOptionWarning" name="someSwitchOption001" type="checkbox"/>
+                            <label for="someSwitchOptionWarning" class="label-warning"></label>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        Response code
+                        <div class="material-switch pull-right">
+                            <input id="someSwitchOptionDanger" name="someSwitchOption001" type="checkbox"/>
+                            <label for="someSwitchOptionDanger" class="label-danger"></label>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="progress col-md-8 col-md-offset-1">
+      <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="70"
+      aria-valuemin="0" aria-valuemax="100" style="width:70%">
+        70% Complete
+      </div>
+    </div>
+</div>
+
+
+
+  </body>
+</html>
